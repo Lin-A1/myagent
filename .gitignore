@@ -137,13 +137,7 @@ dmypy.json
 .DS_Store
 Thumbs.db
 
-# Hidden files (files starting with dot)
-.*
-# But allow specific dotfiles that should be tracked
-!.gitignore
-!.gitattributes
-!.github/
-!.dockerignore
+
 
 # Project specific
 .env
