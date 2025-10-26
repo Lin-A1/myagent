@@ -149,6 +149,9 @@ Thumbs.db
 .env
 .env.local
 .env.*.local
+.env.development
+.env.staging
+.env.production
 
 # Docker
 docker-compose.override.yml
