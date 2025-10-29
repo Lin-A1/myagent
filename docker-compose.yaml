@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  paddleocr:
+    build:
+      context: ./src/core/engines/ocr/paddleocr
+      dockerfile: Dockerfile
+    container_name: myagent-paddleocr
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./src/core/engines/ocr/paddleocr/server.py:/paddle/server.py
+
+    environment:
+      - PYTHONPATH=/paddle
+      - LANG=C.UTF-8
+      - LC_ALL=C.UTF-8
+      - CUDA_VISIBLE_DEVICES=0
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+        labels: "service=paddleocr"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    shm_size: 8gb
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 3
+    networks:
+      - myagent-network
+
+networks:
+  myagent-network:
+    driver: bridge

@@ -12,11 +12,19 @@ def main():
     """LLM 聊天示例"""
     llm = LLM(
         model="deepseek-v3.2-exp", 
-        api_key="sk-xxxxxxxxx", 
+        api_key="sk-xxxxxxxxxxxxxxxxxxx", 
         base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
     )
 
-    response = llm.chat("你好")
+    response = llm.chat("你好,我叫lin")
+    print(response)
+    print('------------------------')
+    response = llm.chat("我叫什么")
+    print(response)
+    print('------------------------')
+    llm.delete_last_qa()
+    llm.delete_last_qa()
+    response = llm.chat("我叫什么")
     print(response)
 
 if __name__ == "__main__":
